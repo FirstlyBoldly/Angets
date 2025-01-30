@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src/"]
+include = ["ankhas_greens.gets"]
+
+[project]
+name = "ankhas-gets"
+version = "0.0.1"
+authors = [
+    { name = "Ankhbold Batbaatar", email = "ankhbhold@gmail.com" },
+]
+description = "Ankha's Gets - Custom functions for user input."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+#[project.urls]
+#Homepage = "https://github.com/pypa/sampleproject"
+#Issues = "https://github.com/pypa/sampleproject/issues"
