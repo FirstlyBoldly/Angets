@@ -1,7 +1,7 @@
 """Utility functions for Ankha's Gets."""
 
 # Built-ins
-from typing import Callable, Any
+from typing import Any, Callable
 import unicodedata
 import re
 

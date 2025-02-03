@@ -1,4 +1,5 @@
 """Core - Implementation details."""
+
 # Built-ins
 from typing import Callable, Any
 from datetime import date
@@ -7,15 +8,8 @@ from math import inf
 # Ankha's Gets
 from .settings import ATTEMPTS
 from ._helpers import within_attempts, float_to_int, normalize_to_ascii
-from ._exceptions import (
-    EmptyStringError,
-    InvalidConfirmationError,
-    InvalidISOFormatError,
-    InvalidIntervalError,
-    OutOfBoundsError,
-    NonFloatingPointError,
-    NonIntegerError
-)
+from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISOFormatError, InvalidIntervalError,
+                          OutOfBoundsError, NonFloatingPointError, NonIntegerError)
 
 
 def _get_non_empty_str(prompt: str = '', **kwargs: Any) -> str:
