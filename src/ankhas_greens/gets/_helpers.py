@@ -6,7 +6,7 @@ import unicodedata
 import re
 
 # Ankha's Gets
-from .exceptions import NonIntegerError, InvalidAttemptsValueError, AttemptsExceededError
+from ._exceptions import NonIntegerError, InvalidAttemptsValueError, AttemptsExceededError
 
 
 def within_attempts(attempts: int, function: Callable[..., Any], *args, **kwargs) -> Any:
