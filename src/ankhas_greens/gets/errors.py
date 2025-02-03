@@ -50,7 +50,7 @@ class EmptyStringError(ValueError):
 
     def __init__(self, warning: str) -> None:
         """Create and return a new EmptyStringError object."""
-        warning = warning or 'Input is empty. Please input a valid input.'
+        warning = warning or 'Input is empty. Please input a valid string.'
         super(EmptyStringError, self).__init__(warning)
 
 
