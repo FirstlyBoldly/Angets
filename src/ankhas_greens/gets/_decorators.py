@@ -1,15 +1,14 @@
 """Decorators for Ankha's Gets."""
 # Built-ins
-from collections.abc import Callable
-from typing import Any
+from typing import Any, Callable
 
 # Ankha's Gets
-from errors import AttemptsExceededError
-from settings import ATTEMPTS
-from helpers import warn
+from .settings import ATTEMPTS
+from ._helpers import warn
+from ._exceptions import AttemptsExceededError
 
 
-def within_attempts(attempts: int = ATTEMPTS):
+def within(attempts: int = ATTEMPTS):
     def decorator(function: Callable):
         def wrapper(*args: Any, **kwargs: Any):
             for _ in range(attempts):
