@@ -1,10 +1,29 @@
 """Utility functions for Ankha's Gets."""
+
 # Built-ins
+from typing import Callable, Any
 import unicodedata
 import re
 
 # Ankha's Gets
-from errors import NonIntegerError
+from .exceptions import NonIntegerError, InvalidAttemptsValueError, AttemptsExceededError
+
+
+def within_attempts(attempts: int, function: Callable[..., Any], *args, **kwargs) -> Any:
+    if attempts <= 0:
+        raise InvalidAttemptsValueError(attempts)
+    elif attempts == 1:
+        return function(*args, **kwargs)
+    else:
+        for _ in range(attempts):
+            try:
+                return function(*args, **kwargs)
+            except ValueError as error:
+                if kwargs.get('verbose'):
+                    warn(str(error))
+                continue
+        else:
+            raise AttemptsExceededError(attempts)
 
 
 def warn(warning: str) -> None:
@@ -13,9 +32,10 @@ def warn(warning: str) -> None:
         print(warning)
 
 
-def float_to_int(float_number: float, warning: str = '') -> int:
+def float_to_int(float_number: float, warning: str | None = None) -> int:
     """Return a float as an integer if said float can be converted into an integer without loss of data.
-    Raises a NonIntegerError otherwise.
+
+    :raise NonIntegerError: If float is not an integer.
     """
     if float_number.is_integer():
         return int(float_number)
