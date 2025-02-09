@@ -1,29 +1,11 @@
 """Utility functions for Ankha's Gets."""
 
 # Built-ins
-from typing import Any, Callable
 import unicodedata
 import re
 
 # Ankha's Gets
-from ._exceptions import NonIntegerError, InvalidAttemptsValueError, AttemptsExceededError
-
-
-def within_attempts(function: Callable[..., Any], attempts: int, *args, **kwargs) -> Any:
-    if attempts <= 0:
-        raise InvalidAttemptsValueError(attempts)
-    elif attempts == 1:
-        return function(*args, **kwargs)
-    else:
-        for _ in range(attempts):
-            try:
-                return function(*args, **kwargs)
-            except ValueError as error:
-                if kwargs.get('verbose'):
-                    warn(str(error))
-                continue
-        else:
-            raise AttemptsExceededError(attempts)
+from ._exceptions import NonIntegerError
 
 
 def warn(warning: str) -> None:

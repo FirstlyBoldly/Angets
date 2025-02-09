@@ -24,8 +24,8 @@ def get_non_empty_str(prompt: str = '', **kwargs: dict[str, Any]) -> str:
 
 @loop
 def get_constrained_number(get_number: Callable[[str, Any], float | int], prompt: str = '',
-                            within: tuple[float, float] = (-inf, inf),
-                            interval: str = '()', warning: str = '') -> float | int:
+                           within: tuple[float, float] = (-inf, inf),
+                           interval: str = '()', warning: str = '') -> float | int:
     """Prompts for a number within the constraints.
 
     :param Callable get_number: Function to get the user inputted number (float | int).
@@ -98,6 +98,7 @@ def get_positive_int(prompt: str = '', warning: str = '') -> int:
     """Prompts for a positive integer."""
     return float_to_int(get_constrained_int(get_int, prompt=prompt, within=(0, inf), warning=warning))
 
+
 @loop
 def get_non_negative_int(prompt: str = '', warning: str = '') -> int:
     """Prompts for a non-negative integer."""
@@ -105,13 +106,13 @@ def get_non_negative_int(prompt: str = '', warning: str = '') -> int:
 
 
 @loop
-def get_date(prompt: str, warning: str = '') -> date:
+def get_date(prompt: str = '', warning: str = '') -> date:
     """Prompts for a string with valid ISO 8601 formatting.
 
     :return: A date object.
     """
-    user_input: str = normalize_to_ascii(get_non_empty_str(prompt))
     try:
+        user_input: str = normalize_to_ascii(get_non_empty_str(prompt))
         return date.fromisoformat(user_input)
     except ValueError:
         raise InvalidISOFormatError(warning)
