@@ -9,7 +9,7 @@ import re
 from ._exceptions import NonIntegerError, InvalidAttemptsValueError, AttemptsExceededError
 
 
-def within_attempts(attempts: int, function: Callable[..., Any], *args, **kwargs) -> Any:
+def within_attempts(function: Callable[..., Any], attempts: int, *args, **kwargs) -> Any:
     if attempts <= 0:
         raise InvalidAttemptsValueError(attempts)
     elif attempts == 1:

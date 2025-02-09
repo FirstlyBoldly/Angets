@@ -1,4 +1,4 @@
 """Settings for Ankha's Gets."""
 
-ATTEMPTS: int = 10
+ATTEMPTS: int = 1
 """Allowed attempts."""
