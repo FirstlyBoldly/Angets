@@ -1,31 +1,30 @@
 """Core - Implementation details."""
 
 # Built-ins
-from typing import Callable, Any
+from typing import Callable
 from datetime import date
 from math import inf
 
 # Ankha's Gets
 from ._decorators import loop
-from ._helpers import float_to_int, normalize_to_ascii
+from ._helpers import convert_float_to_int, normalize_to_ascii
 from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISOFormatError, InvalidIntervalError,
                           OutOfBoundsError, NonFloatingPointError, NonIntegerError)
 
 
 @loop
-def get_non_empty_str(prompt: str = '', **kwargs: dict[str, Any]) -> str:
+def get_non_empty_str(prompt: str = '', warning: str = '', **kwargs) -> str:
     """Prompts for a non-empty string."""
     user_input: str = input(prompt)
     if not user_input.isspace() and len(user_input) != 0:
         return user_input
     else:
-        raise EmptyStringError(kwargs.get('warning'))
+        raise EmptyStringError(warning)
 
 
 @loop
-def get_constrained_number(get_number: Callable[[str, Any], float | int], prompt: str = '',
-                           within: tuple[float, float] = (-inf, inf),
-                           interval: str = '()', warning: str = '') -> float | int:
+def get_constrained_number(get_number: Callable, within: tuple[float, float], interval: str, prompt: str = '',
+                           warning: str = '', **kwargs) -> float | int:
     """Prompts for a number within the constraints.
 
     :param Callable get_number: Function to get the user inputted number (float | int).
@@ -52,7 +51,7 @@ def get_constrained_number(get_number: Callable[[str, Any], float | int], prompt
 
 
 @loop
-def get_float(prompt: str = '', warning: str = '') -> float:
+def get_float(prompt: str = '', warning: str = '', **kwargs) -> float:
     """Prompts for a floating-point number."""
     try:
         return float(normalize_to_ascii(get_non_empty_str(prompt)))
@@ -61,25 +60,26 @@ def get_float(prompt: str = '', warning: str = '') -> float:
 
 
 @loop
-def get_constrained_float(_get_float: Callable[..., float], **kwargs) -> float:
+def get_constrained_float(within: tuple[float, float], interval: str, prompt: str = '', warning: str = '',
+                          **kwargs) -> float:
     """Prompts for a float within the constraints."""
-    return get_constrained_number(_get_float, **kwargs)
+    return get_constrained_number(get_float, within, interval, prompt, warning, **kwargs)
 
 
 @loop
-def get_positive_float(prompt: str = '', warning: str = '') -> float:
+def get_positive_float(prompt: str = '', warning: str = '', **kwargs) -> float:
     """Prompts for a positive integer."""
-    return get_constrained_float(get_float, prompt=prompt, within=(0, inf), warning=warning)
+    return get_constrained_float((0, inf), '()', prompt, warning, **kwargs)
 
 
 @loop
-def get_non_negative_float(prompt: str = '', warning: str = '') -> float:
+def get_non_negative_float(prompt: str = '', warning: str = '', **kwargs) -> float:
     """Prompts for a non-negative integer."""
-    return get_constrained_float(get_float, prompt=prompt, within=(-1, inf), warning=warning)
+    return get_constrained_float((0, inf), '[)', prompt, warning, **kwargs)
 
 
 @loop
-def get_int(prompt: str = '', warning: str = '') -> int:
+def get_int(prompt: str = '', warning: str = '', **kwargs) -> int:
     """Prompts for an integer."""
     try:
         return int(normalize_to_ascii(get_non_empty_str(prompt)))
@@ -88,25 +88,26 @@ def get_int(prompt: str = '', warning: str = '') -> int:
 
 
 @loop
-def get_constrained_int(_get_int: Callable[..., int], **kwargs) -> int:
+def get_constrained_int(within: tuple[float, float], interval: str, prompt: str = '', warning: str = '',
+                        **kwargs) -> int:
     """Prompts for an integer within the constraints."""
-    return get_constrained_int(_get_int, **kwargs)
+    return convert_float_to_int(get_constrained_number(get_int, within, interval, prompt, warning, **kwargs))
 
 
 @loop
-def get_positive_int(prompt: str = '', warning: str = '') -> int:
+def get_positive_int(prompt: str = '', warning: str = '', **kwargs) -> int:
     """Prompts for a positive integer."""
-    return float_to_int(get_constrained_int(get_int, prompt=prompt, within=(0, inf), warning=warning))
+    return get_constrained_int((0, inf), '()', prompt, warning, **kwargs)
 
 
 @loop
-def get_non_negative_int(prompt: str = '', warning: str = '') -> int:
+def get_non_negative_int(prompt: str = '', warning: str = '', **kwargs) -> int:
     """Prompts for a non-negative integer."""
-    return float_to_int(get_constrained_int(get_int, prompt=prompt, within=(-1, inf), warning=warning))
+    return get_constrained_int((0, inf), '[)', prompt, warning, **kwargs)
 
 
 @loop
-def get_date(prompt: str = '', warning: str = '') -> date:
+def get_date(prompt: str = '', warning: str = '', **kwargs) -> date:
     """Prompts for a string with valid ISO 8601 formatting.
 
     :return: A date object.
@@ -119,18 +120,16 @@ def get_date(prompt: str = '', warning: str = '') -> date:
 
 
 @loop
-def get_confirmation(prompt: str = '(Y/n)', warning: str = '') -> bool:
+def get_confirmation(prompt: str = '(Y/n)', warning: str = '', selection: dict[str, bool] | None = None,
+                     **kwargs) -> bool:
     """Prompts for a valid confirmation has been read.
 
     :return: True if 'yes' or 'y', otherwise False.
     """
-    valid_confirmations: dict[str, bool] = {
-        'yes': True,
-        'y': True,
-        'no': False,
-        'n': False
-    }
+    selection = selection or {'yes': True, 'y': True, 'no': False, 'n': False}
+    # Make the selection keys case-insensitive.
+    selection = {key.lower(): value for key, value in selection}
     try:
-        return valid_confirmations[get_non_empty_str(prompt).strip().lower()]
+        return selection[get_non_empty_str(prompt).strip().lower()]
     except KeyError:
         raise InvalidConfirmationError(warning)

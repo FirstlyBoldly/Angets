@@ -1,7 +1,8 @@
 """Decorators for Ankha's Gets."""
 
 # Built-ins
-from typing import Any, Callable
+from typing import Callable
+from functools import wraps
 
 # Ankha's Gets
 from ._settings import ATTEMPTS
@@ -10,7 +11,8 @@ from ._exceptions import AttemptsExceededError, InvalidAttemptsValueError
 
 
 def loop(function: Callable):
-    def wrapper(*args: Any, **kwargs: Any):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
         attempts = kwargs.get('attempts', ATTEMPTS)
         if attempts <= 0:
             raise InvalidAttemptsValueError(attempts)

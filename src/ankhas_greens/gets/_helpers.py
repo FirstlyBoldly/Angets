@@ -1,8 +1,8 @@
 """Utility functions for Ankha's Gets."""
 
 # Built-ins
-import unicodedata
-import re
+from unicodedata import normalize
+from re import sub
 
 # Ankha's Gets
 from ._exceptions import NonIntegerError
@@ -14,7 +14,7 @@ def warn(warning: str) -> None:
         print(warning)
 
 
-def float_to_int(float_number: float, warning: str | None = None) -> int:
+def convert_float_to_int(float_number: float, warning: str | None = None) -> int:
     """Return a float as an integer if said float can be converted into an integer without loss of data.
 
     :raise NonIntegerError: If float is not an integer.
@@ -27,4 +27,4 @@ def float_to_int(float_number: float, warning: str | None = None) -> int:
 
 def normalize_to_ascii(non_ascii_string: str) -> str:
     """Convert a Japanese full-width number to half-width."""
-    return re.sub('[ー－―—‐]', '-', unicodedata.normalize('NFKC', non_ascii_string))
+    return sub('[ー－―—‐]', '-', normalize('NFKC', non_ascii_string))
