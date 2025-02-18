@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src/"]
-include = ["ankhas_greens.gets"]
+include = ["ankhas_greens.angets"]
 
 [project]
-name = "ankhas-gets"
+name = "angets"
 version = "0.0.1"
 authors = [
     { name = "Ankhbold Batbaatar", email = "ankhbhold@gmail.com" },
 ]
-description = "Ankha's Gets - Custom functions for user input."
+description = "Angets (Ankha's Gets): Functions for user input."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }

@@ -5,7 +5,7 @@ from typing import Callable
 from datetime import date
 from math import inf
 
-# Ankha's Gets
+# Angets
 from ._decorators import loop
 from ._helpers import convert_float_to_int, normalize_to_ascii
 from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISOFormatError, InvalidIntervalError,
@@ -14,7 +14,15 @@ from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISO
 
 @loop
 def get_non_empty_str(prompt: str = '', warning: str = '', **kwargs) -> str:
-    """Prompts for a non-empty string."""
+    """Prompts for a non-empty string.
+
+    :param str prompt: Prompt for the integer input.
+    :param str warning: The warning message if the input floating-point number is out of bounds.
+
+    :return: A non-empty string.
+
+    :raise EmptyStringError: If the input string is empty.
+    """
     user_input: str = input(prompt)
     if not user_input.isspace() and len(user_input) != 0:
         return user_input
@@ -28,14 +36,14 @@ def get_constrained_number(get_number: Callable, within: tuple[float, float], in
     """Prompts for a number within the constraints.
 
     :param Callable get_number: Function to get the user inputted number (float | int).
-    :param str prompt: Prompt for the integer input.
     :param tuple within: A tuple representing (lower, upper) in which the input integer must lie within.
     :param str interval: '(' or ')' for non-inclusive, '[' or ']' for inclusive.
+    :param str prompt: Prompt for the integer input.
     :param str warning: The warning message if the input floating-point number is out of bounds.
 
     :return: A number within bounds.
 
-    :raise InvalidIntervalError: if the interval value is invalid.
+    :raise InvalidIntervalError: If the interval value is invalid.
     """
     intervals: list[str] = ['()', '[]', '(]', '[)']
     if interval not in intervals:

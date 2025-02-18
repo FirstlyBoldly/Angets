@@ -1,4 +1,4 @@
-"""Unit tests for Ankha's Gets. #TODO"""
+"""Unit tests for Angets (Ankha's Gets). #TODO"""
 import unittest
 
 

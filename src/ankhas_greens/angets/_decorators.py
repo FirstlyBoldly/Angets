@@ -1,11 +1,11 @@
-"""Decorators for Ankha's Gets."""
+"""Decorators for Angets (Ankha's Gets)."""
 
 # Built-ins
 from typing import Callable
 from functools import wraps
 
-# Ankha's Gets
-from ._settings import ATTEMPTS
+# Angets
+from ._defaults import ATTEMPTS
 from ._helpers import warn
 from ._exceptions import AttemptsExceededError, InvalidAttemptsValueError
 
@@ -13,7 +13,7 @@ from ._exceptions import AttemptsExceededError, InvalidAttemptsValueError
 def loop(function: Callable):
     @wraps(function)
     def wrapper(*args, **kwargs):
-        attempts = kwargs.get('attempts', ATTEMPTS)
+        attempts: int = kwargs.get('attempts', ATTEMPTS)
         if attempts <= 0:
             raise InvalidAttemptsValueError(attempts)
         elif attempts == 1:

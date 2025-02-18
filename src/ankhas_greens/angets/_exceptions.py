@@ -1,4 +1,4 @@
-"""Custom exceptions for Ankha's Gets."""
+"""Custom exceptions for Angets (Ankha's Gets)."""
 
 
 class InvalidAttemptsValueError(ValueError):

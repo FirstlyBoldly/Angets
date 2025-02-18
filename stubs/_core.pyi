@@ -1,4 +1,4 @@
-"""Stubs for Ankha's Gets."""
+"""Stubs for Angets (Ankha's Gets)."""
 
 from typing import Any
 

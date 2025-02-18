@@ -1,10 +1,10 @@
-"""Utility functions for Ankha's Gets."""
+"""Utility functions for Angets (Ankha's Gets)."""
 
 # Built-ins
 from unicodedata import normalize
 from re import sub
 
-# Ankha's Gets
+# Angets
 from ._exceptions import NonIntegerError
 
 
