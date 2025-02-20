@@ -12,7 +12,7 @@ Python 3.10.x or newer.
 
 ## Installation
 
-`pip install ankhas-greens-angets`
+`pip install angets`
 
 ## Usage
 
