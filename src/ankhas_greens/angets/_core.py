@@ -13,7 +13,7 @@ from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISO
 
 
 @loop
-def get_non_empty_str(prompt: str = '', warning: Optional[str] = None, **kwargs: Any):
+def get_non_empty_str(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> str:
     """Prompts for a non-empty string.
 
     :param str prompt: The prompt string.
