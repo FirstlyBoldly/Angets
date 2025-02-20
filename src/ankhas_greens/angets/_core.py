@@ -1,7 +1,7 @@
 """Core - Implementation details."""
 
 # Built-ins
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 from datetime import date
 from math import inf
 
@@ -13,7 +13,7 @@ from ._exceptions import (EmptyStringError, InvalidConfirmationError, InvalidISO
 
 
 @loop
-def get_non_empty_str(prompt: str = '', warning: Optional[str] = None, **kwargs) -> str:
+def get_non_empty_str(prompt: str = '', warning: Optional[str] = None, **kwargs: Any):
     """Prompts for a non-empty string.
 
     :param str prompt: The prompt string.
@@ -36,7 +36,7 @@ def get_non_empty_str(prompt: str = '', warning: Optional[str] = None, **kwargs)
 
 @loop
 def get_constrained_number(get_number: Callable, within: tuple[float, float], interval: str, prompt: str = '',
-                           warning: Optional[str] = None, **kwargs) -> float | int:
+                           warning: Optional[str] = None, **kwargs: Any) -> float | int:
     """Prompts for a number within the constraints.
 
     :param Callable get_number: Function to get the user inputted number (float | int).
@@ -56,7 +56,7 @@ def get_constrained_number(get_number: Callable, within: tuple[float, float], in
     if interval not in intervals:
         raise InvalidIntervalError(intervals, interval)
 
-    user_input: float | int = get_number(prompt, warning)
+    user_input: float | int = get_number(prompt, warning, **kwargs)
     is_within_lower_bound: bool = within[0] < user_input if interval[0] == '(' else within[0] <= user_input
     is_within_upper_bound: bool = within[1] > user_input if interval[1] == ')' else within[1] >= user_input
     if is_within_lower_bound and is_within_upper_bound:
@@ -66,7 +66,7 @@ def get_constrained_number(get_number: Callable, within: tuple[float, float], in
 
 
 @loop
-def get_float(prompt: str = '', warning: Optional[str] = None, **kwargs) -> float:
+def get_float(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> float:
     """Prompts for a floating-point number.
 
     :param str prompt: The prompt string.
@@ -77,14 +77,14 @@ def get_float(prompt: str = '', warning: Optional[str] = None, **kwargs) -> floa
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
     try:
-        return float(normalize_to_ascii(get_non_empty_str(prompt)))
+        return float(normalize_to_ascii(get_non_empty_str(prompt, **kwargs)))
     except ValueError:
         raise NonFloatingPointError(warning)
 
 
 @loop
 def get_constrained_float(within: tuple[float, float], interval: str, prompt: str = '', warning: Optional[str] = None,
-                          **kwargs) -> float:
+                          **kwargs: Any) -> float:
     """Prompts for a float within the constraints.
 
     :param tuple within: A tuple representing (lower, upper) in which the input integer must lie within.
@@ -100,7 +100,7 @@ def get_constrained_float(within: tuple[float, float], interval: str, prompt: st
 
 
 @loop
-def get_positive_float(prompt: str = '', warning: Optional[str] = None, **kwargs) -> float:
+def get_positive_float(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> float:
     """Prompts for a positive integer.
 
     :param str prompt: The prompt string.
@@ -114,7 +114,7 @@ def get_positive_float(prompt: str = '', warning: Optional[str] = None, **kwargs
 
 
 @loop
-def get_non_negative_float(prompt: str = '', warning: Optional[str] = None, **kwargs) -> float:
+def get_non_negative_float(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> float:
     """Prompts for a non-negative integer.
 
     :param str prompt: The prompt string.
@@ -128,7 +128,7 @@ def get_non_negative_float(prompt: str = '', warning: Optional[str] = None, **kw
 
 
 @loop
-def get_int(prompt: str = '', warning: Optional[str] = None, **kwargs) -> int:
+def get_int(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> int:
     """Prompts for an integer.
 
     :param str prompt: The prompt string.
@@ -139,14 +139,14 @@ def get_int(prompt: str = '', warning: Optional[str] = None, **kwargs) -> int:
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
     try:
-        return int(normalize_to_ascii(get_non_empty_str(prompt)))
+        return int(normalize_to_ascii(get_non_empty_str(prompt, **kwargs)))
     except ValueError:
         raise NonIntegerError(warning)
 
 
 @loop
 def get_constrained_int(within: tuple[float, float], interval: str, prompt: str = '', warning: Optional[str] = None,
-                        **kwargs) -> int:
+                        **kwargs: Any) -> int:
     """Prompts for an integer within the constraints.
 
     :param tuple within: A tuple representing (lower, upper) in which the input integer must lie within.
@@ -162,7 +162,7 @@ def get_constrained_int(within: tuple[float, float], interval: str, prompt: str 
 
 
 @loop
-def get_positive_int(prompt: str = '', warning: Optional[str] = None, **kwargs) -> int:
+def get_positive_int(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> int:
     """Prompts for a positive integer.
 
     :param str prompt: The prompt string.
@@ -176,7 +176,7 @@ def get_positive_int(prompt: str = '', warning: Optional[str] = None, **kwargs) 
 
 
 @loop
-def get_non_negative_int(prompt: str = '', warning: Optional[str] = None, **kwargs) -> int:
+def get_non_negative_int(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> int:
     """Prompts for a non-negative integer.
 
     :param str prompt: The prompt string.
@@ -190,7 +190,7 @@ def get_non_negative_int(prompt: str = '', warning: Optional[str] = None, **kwar
 
 
 @loop
-def get_date(prompt: str = '', warning: Optional[str] = None, **kwargs) -> date:
+def get_date(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> date:
     """Prompts for a string with valid ISO 8601 formatting.
 
     :param str prompt: The prompt string.
@@ -203,7 +203,7 @@ def get_date(prompt: str = '', warning: Optional[str] = None, **kwargs) -> date:
     :return: A date object.
     """
     try:
-        user_input: str = normalize_to_ascii(get_non_empty_str(prompt))
+        user_input: str = normalize_to_ascii(get_non_empty_str(prompt, **kwargs))
         return date.fromisoformat(user_input)
     except ValueError:
         raise InvalidISOFormatError(warning)
@@ -211,7 +211,7 @@ def get_date(prompt: str = '', warning: Optional[str] = None, **kwargs) -> date:
 
 @loop
 def get_confirmation(prompt: str = '', warning: Optional[str] = None, selection: Optional[dict[str, bool]] = None,
-                     **kwargs) -> bool:
+                     **kwargs: Any) -> bool:
     """Prompts for a valid confirmation has been read.
 
     :param str prompt: The prompt string.
@@ -228,6 +228,6 @@ def get_confirmation(prompt: str = '', warning: Optional[str] = None, selection:
     # Make the selection keys case-insensitive.
     selection = {key.lower(): value for key, value in selection}
     try:
-        return selection[get_non_empty_str(prompt).strip().lower()]
+        return selection[get_non_empty_str(prompt, **kwargs).strip().lower()]
     except KeyError:
         raise InvalidConfirmationError(warning)
