@@ -30,7 +30,7 @@ To get inputs with a bit more control.
 > Remember to set `verbose` to True as no warning will be conveyed to the user otherwise.
 ```python
 input1 = angets.get_constrained_float(
-    wihtin=(6, 9),
+    within=(6, 9),
     interval='[]',
     prompt='Now give me a number within said range!',
     warning="Oops! Not within the bounds I'm afraid...",
