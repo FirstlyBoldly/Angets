@@ -1,4 +1,5 @@
 """Custom exceptions for Angets (Ankha's Gets)."""
+from typing import Optional
 
 
 class InvalidAttemptsValueError(ValueError):
@@ -20,18 +21,22 @@ class AttemptsExceededError(Exception):
 class InvalidISOFormatError(ValueError):
     """Invalid ISO format."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new InvalidISOFormatError object."""
-        warning = warning or 'Invalid ISO format. Example: (1970-01-01)'
+        if warning is None:
+            warning = 'Invalid ISO format. Example: (1970-01-01)'
+
         super(InvalidISOFormatError, self).__init__(warning)
 
 
 class InvalidConfirmationError(ValueError):
     """Invalid confirmation string."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new InvalidConfirmationError object."""
-        warning = warning or 'Invalid confirmation string. Example: "yes"'
+        if warning is None:
+            warning = 'Invalid confirmation string.'
+
         super(InvalidConfirmationError, self).__init__(warning)
 
 
@@ -47,34 +52,42 @@ class InvalidIntervalError(Exception):
 class OutOfBoundsError(ValueError):
     """Value not within bounds."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new OutOfBoundsError object."""
-        warning = warning or 'Value not within bounds.'
+        if warning is None:
+            warning = 'Value not within bounds.'
+
         super(OutOfBoundsError, self).__init__(warning)
 
 
 class EmptyStringError(ValueError):
     """Empty string."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new EmptyStringError object."""
-        warning = warning or 'Input is empty. Please input a valid string.'
+        if warning is None:
+            warning = 'Input is empty. Please input a valid string.'
+
         super(EmptyStringError, self).__init__(warning)
 
 
 class NonFloatingPointError(ValueError):
     """Non-floating-point number."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new NonFloatingPointError object."""
-        warning = warning or 'Not a floating-point number. Please input a valid floating-point number.'
+        if warning is None:
+            warning = 'Not a floating-point number. Please input a valid floating-point number.'
+
         super(NonFloatingPointError, self).__init__(warning)
 
 
 class NonIntegerError(ValueError):
     """Non-integer number."""
 
-    def __init__(self, warning: str | None) -> None:
+    def __init__(self, warning: Optional[str]) -> None:
         """Create and return a new NonIntegerError object."""
-        warning = warning or 'Not an integer. Please input a valid integer number.'
+        if warning is None:
+            warning = 'Not an integer. Please input a valid integer number.'
+
         super(NonIntegerError, self).__init__(warning)

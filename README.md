@@ -35,6 +35,8 @@ input0 = angets.get_non_empty_string('Give me a response! ')
 ```
 
 To get inputs with a bit more control.
+<br/>
+*Remember to set `verbose` to True as no warning will be conveyed to the user otherwise.*
 ```python
 input1 = angets.get_constrained_float(
     wihtin=(6, 9),
