@@ -1,4 +1,4 @@
-"""Settings for Angets (Ankha's Gets)."""
+"""Settings for Angets."""
 
 ATTEMPTS: int = 1
 """Allowed attempts."""

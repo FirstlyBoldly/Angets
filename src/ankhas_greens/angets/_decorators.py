@@ -1,4 +1,4 @@
-"""Decorators for Angets (Ankha's Gets)."""
+"""Decorators for Angets."""
 
 # Built-ins
 from typing import Callable

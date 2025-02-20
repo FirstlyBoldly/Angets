@@ -35,8 +35,9 @@ input0 = angets.get_non_empty_string('Give me a response! ')
 ```
 
 To get inputs with a bit more control.
-<br/>
-*Remember to set `verbose` to True as no warning will be conveyed to the user otherwise.*
+
+> Remember to set `verbose` to True as no warning will be conveyed to the user otherwise.
+
 ```python
 input1 = angets.get_constrained_float(
     wihtin=(6, 9),
@@ -56,14 +57,14 @@ It should be a useful utility tool to mitigate against invalid user inputs.
 
 ---
 
-*Actually, I don't expect anyone else other than me to use this package.
+Actually, I don't expect anyone else other than me to use this package.
 \
-But if you find it useful enough to want to contribute, be my guest!*
+But if you find it useful enough to want to contribute, be my guest!
 
 ---
 
-**Created&nbsp;&nbsp;: 19 February 2025.
+Created: 19 February 2025.
 \
-Updated : None.**
+Updated: None.
 
 ---

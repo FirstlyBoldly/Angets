@@ -1,4 +1,4 @@
-"""Utility functions for Angets (Ankha's Gets)."""
+"""Utility functions for Angets."""
 
 # Built-ins
 from unicodedata import normalize

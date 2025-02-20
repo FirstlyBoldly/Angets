@@ -1,4 +1,4 @@
-"""Custom exceptions for Angets (Ankha's Gets)."""
+"""Custom exceptions for Angets."""
 from typing import Optional
 
 
