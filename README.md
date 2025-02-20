@@ -18,7 +18,7 @@ Python 3.10.x or newer.
 
 Import Module.
 ```python
-from ankhas_greens import angets
+import angets
 ```
 
 Basic usage, One attempt with a prompt to the user.
@@ -51,6 +51,8 @@ But if you find it useful enough to want to contribute, be my guest!
 
 ## Changes
 
-Created: 19 February 2025.
-\
-Updated: None.
+Created:
+- 19 February 2025.
+
+Revised:
+- 21 February 2025.
