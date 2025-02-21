@@ -143,3 +143,35 @@ class TestInt:
         monkeypatch.setattr('builtins.input', lambda _: '1.0')
         result = angets.get_int()
         assert result == 1
+
+    def test_returned_value1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '４２０')
+        result = angets.get_int()
+        assert result == 420
+
+
+class TestConstrainedInt:
+    def test_exception0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '')
+        with pytest.raises(err.NonIntegerError):
+            angets.get_constrained_int(within=(1, 4), interval='[]')
+
+    def test_exception1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2.5')
+        with pytest.raises(err.NonIntegerError):
+            angets.get_constrained_int(within=(1, 4), interval='[]')
+
+    def test_exception2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '0')
+        with pytest.raises(err.OutOfBoundsError):
+            angets.get_positive_int()
+
+    def test_returned_value0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '1.0')
+        result = angets.get_constrained_int(within=(1, 4), interval='[]')
+        assert result == 1
+
+    def test_returned_value1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '5')
+        result = angets.get_positive_int()
+        assert result == 5
