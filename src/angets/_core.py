@@ -139,7 +139,7 @@ def get_int(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> i
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
     try:
-        return int(normalize_to_ascii(get_non_empty_str(prompt)))
+        return convert_float_to_int(get_float(prompt))
     except ValueError:
         raise NonIntegerError(warning)
 
@@ -158,7 +158,7 @@ def get_constrained_int(within: tuple[float, float], interval: str, prompt: str 
     :key bool verbose: Warn the user if any exceptions are raised. No warning will be printed unless explicitly set to True.
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
-    return convert_float_to_int(get_constrained_number(get_int, within, interval, prompt, warning, **kwargs))
+    return get_constrained_number(get_int, within, interval, prompt, warning, **kwargs)
 
 
 @loop
