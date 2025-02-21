@@ -1,4 +1,7 @@
 """Unit tests for Angets."""
+# Built-ins
+from datetime import date
+
 # Angets
 import angets
 
@@ -175,3 +178,35 @@ class TestConstrainedInt:
         monkeypatch.setattr('builtins.input', lambda _: '5')
         result = angets.get_positive_int()
         assert result == 5
+
+
+class TestDate:
+    def test_exception0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '')
+        with pytest.raises(err.InvalidISOFormatError):
+            angets.get_date()
+
+    def test_exception1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2024/2/22')
+        with pytest.raises(err.InvalidISOFormatError):
+            angets.get_date()
+
+    def test_exception2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2024年2月22日')
+        with pytest.raises(err.InvalidISOFormatError):
+            angets.get_date()
+
+    def test_exception3(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '   2022/02/22 ')
+        with pytest.raises(err.InvalidISOFormatError):
+            angets.get_date()
+
+    def test_returned_value0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2024-02-22')
+        result = angets.get_date()
+        assert result == date(2024, 2, 22)
+
+    def test_returned_value1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '２０２４０２２２')
+        result = angets.get_date()
+        assert result == date(2024, 2, 22)
