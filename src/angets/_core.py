@@ -56,7 +56,7 @@ def get_constrained_number(get_number: Callable, within: tuple[float, float], in
     if interval not in intervals:
         raise InvalidIntervalError(intervals, interval)
 
-    user_input: float | int = get_number(prompt, warning, **kwargs)
+    user_input: float | int = get_number(prompt, warning)
     is_within_lower_bound: bool = within[0] < user_input if interval[0] == '(' else within[0] <= user_input
     is_within_upper_bound: bool = within[1] > user_input if interval[1] == ')' else within[1] >= user_input
     if is_within_lower_bound and is_within_upper_bound:
@@ -77,7 +77,7 @@ def get_float(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) ->
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
     try:
-        return float(normalize_to_ascii(get_non_empty_str(prompt, **kwargs)))
+        return float(normalize_to_ascii(get_non_empty_str(prompt)))
     except ValueError:
         raise NonFloatingPointError(warning)
 
@@ -139,7 +139,7 @@ def get_int(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> i
     :key int attempts: Allowed number of attempts before raising an exception. One by default.
     """
     try:
-        return int(normalize_to_ascii(get_non_empty_str(prompt, **kwargs)))
+        return int(normalize_to_ascii(get_non_empty_str(prompt)))
     except ValueError:
         raise NonIntegerError(warning)
 
@@ -203,7 +203,7 @@ def get_date(prompt: str = '', warning: Optional[str] = None, **kwargs: Any) -> 
     :return: A date object.
     """
     try:
-        user_input: str = normalize_to_ascii(get_non_empty_str(prompt, **kwargs))
+        user_input: str = normalize_to_ascii(get_non_empty_str(prompt))
         return date.fromisoformat(user_input)
     except ValueError:
         raise InvalidISOFormatError(warning)
@@ -228,6 +228,6 @@ def get_confirmation(prompt: str = '', warning: Optional[str] = None, selection:
     # Make the selection keys case-insensitive.
     selection = {key.lower(): value for key, value in selection}
     try:
-        return selection[get_non_empty_str(prompt, **kwargs).strip().lower()]
+        return selection[get_non_empty_str(prompt).strip().lower()]
     except KeyError:
         raise InvalidConfirmationError(warning)
