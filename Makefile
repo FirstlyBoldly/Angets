@@ -7,4 +7,4 @@ upgrade:
 	python -m pip install --upgrade angets
 
 test:
-	python -m pytest tests/
+	python -m pytest $(flags) tests/
