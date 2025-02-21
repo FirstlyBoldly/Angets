@@ -17,17 +17,20 @@ Python 3.10.x or newer.
 ## Usage
 
 Import Module.
+
 ```python
 import angets
 ```
 
 Basic usage, One attempt with a prompt to the user.
+
 ```python
 input0 = angets.get_non_empty_string('Give me a response! ')
 ```
 
 To get inputs with a bit more control.
 > Remember to set `verbose` to True as no warning will be conveyed to the user otherwise.
+
 ```python
 input1 = angets.get_constrained_float(
     within=(6, 9),
@@ -52,7 +55,11 @@ But if you find it useful enough to want to contribute, be my guest!
 ## Changes
 
 Created:
+
 - 19 February 2025.
 
 Revised:
+
 - 21 February 2025.
+  1. Fixed the installation command.
+  2. Added a new image.
