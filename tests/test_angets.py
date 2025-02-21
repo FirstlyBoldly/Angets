@@ -19,16 +19,27 @@ class TestGetNonEmptyStr:
         with pytest.raises(err.EmptyStringError):
             angets.get_non_empty_str()
 
-    def test_attempts_exception(self, monkeypatch):
+    def test_exception2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: 'Test')
+        with pytest.raises(err.InvalidAttemptsValueError):
+            angets.get_non_empty_str(attempts=0)
+
+    def test_exception3(self, monkeypatch):
         inputs = iter(['', '', ''])
         monkeypatch.setattr('builtins.input', lambda _: next(inputs))
         with pytest.raises(err.AttemptsExceededError):
             angets.get_non_empty_str(attempts=3)
 
-    def test_returned_value(self, monkeypatch):
+    def test_returned_value0(self, monkeypatch):
         monkeypatch.setattr('builtins.input', lambda _: 'Bob')
         result = angets.get_non_empty_str()
         assert result == 'Bob'
+
+    def test_returned_value1(self, monkeypatch):
+        inputs = iter(['', 'Java', 'Bob'])
+        monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+        result = angets.get_non_empty_str(attempts=3)
+        assert result == 'Java'
 
 
 class TestFloat:
@@ -61,3 +72,40 @@ class TestFloat:
         monkeypatch.setattr('builtins.input', lambda _: 'ー3．1４')
         result = angets.get_float()
         assert result == -3.14
+
+
+class TestConstrainedFloat:
+    def test_exception0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '5')
+        with pytest.raises(err.OutOfBoundsError):
+            angets.get_constrained_float(within=(1, 4), interval='[]')
+
+    def test_exception1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '4')
+        with pytest.raises(err.OutOfBoundsError):
+            angets.get_constrained_float(within=(1, 4), interval='[)')
+
+    def test_exception2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2')
+        with pytest.raises(err.OutOfBoundsError):
+            angets.get_constrained_float(within=(2, 1), interval='[]')
+
+    def test_exception3(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '5')
+        with pytest.raises(err.InvalidIntervalError):
+            angets.get_constrained_float(within=(1, 4), interval='])')
+
+    def test_exception4(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '5')
+        with pytest.raises(err.InvalidIntervalError):
+            angets.get_constrained_float(within=(1, 4), interval='{}')
+
+    def test_returned_value0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '4')
+        result = angets.get_constrained_float(within=(1, 4), interval='[]')
+        assert result == 4
+
+    def test_returned_value1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '-0.34')
+        result = angets.get_constrained_float(within=(-1, 0), interval='()')
+        assert result == -0.34
