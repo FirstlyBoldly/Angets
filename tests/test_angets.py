@@ -91,11 +91,16 @@ class TestConstrainedFloat:
             angets.get_constrained_float(within=(2, 1), interval='[]')
 
     def test_exception3(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '-2.71')
+        with pytest.raises(err.OutOfBoundsError):
+            angets.get_positive_float()
+
+    def test_exception4(self, monkeypatch):
         monkeypatch.setattr('builtins.input', lambda _: '5')
         with pytest.raises(err.InvalidIntervalError):
             angets.get_constrained_float(within=(1, 4), interval='])')
 
-    def test_exception4(self, monkeypatch):
+    def test_exception5(self, monkeypatch):
         monkeypatch.setattr('builtins.input', lambda _: '5')
         with pytest.raises(err.InvalidIntervalError):
             angets.get_constrained_float(within=(1, 4), interval='{}')
@@ -109,3 +114,32 @@ class TestConstrainedFloat:
         monkeypatch.setattr('builtins.input', lambda _: '-0.34')
         result = angets.get_constrained_float(within=(-1, 0), interval='()')
         assert result == -0.34
+
+    def test_returned_value2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '2.71')
+        result = angets.get_positive_float()
+        assert result == 2.71
+
+    def test_returned_value3(self, monkeypatch):
+        inputs = iter(['Orgil', '3.14', '-6.28'])
+        monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+        result = angets.get_non_negative_float(attempts=3)
+        assert result == 3.14
+
+
+class TestInt:
+    def test_exception0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '')
+        with pytest.raises(err.NonIntegerError):
+            angets.get_int()
+
+    def test_exception1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '1.01')
+        with pytest.raises(err.NonIntegerError):
+            angets.get_int()
+
+    # Huh, I suppose tests are important after all!
+    def test_returned_value0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: '1.0')
+        result = angets.get_int()
+        assert result == 1
