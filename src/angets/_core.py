@@ -226,7 +226,7 @@ def get_confirmation(prompt: str = '', warning: Optional[str] = None, selection:
     """
     selection = selection or {'yes': True, 'y': True, 'no': False, 'n': False}
     # Make the selection keys case-insensitive.
-    selection = {key.lower(): value for key, value in selection}
+    selection = {key.lower(): value for key, value in selection.items()}
     try:
         return selection[get_non_empty_str(prompt).strip().lower()]
     except KeyError:

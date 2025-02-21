@@ -210,3 +210,32 @@ class TestDate:
         monkeypatch.setattr('builtins.input', lambda _: '２０２４０２２２')
         result = angets.get_date()
         assert result == date(2024, 2, 22)
+
+
+class TestConfirmation:
+    def test_exception0(self, monkeypatch):
+        inputs = iter(['', '', ''])
+        monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+        with pytest.raises(err.AttemptsExceededError):
+            angets.get_confirmation(attempts=3)
+
+    # Its little details that come to haunt you...
+    def test_exception1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: 'Q')
+        with pytest.raises(err.InvalidConfirmationError):
+            angets.get_confirmation()
+
+    def test_return_value0(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: 'y')
+        result = angets.get_confirmation()
+        assert result == True
+
+    def test_return_value1(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: 'N')
+        result = angets.get_confirmation()
+        assert result == False
+
+    def test_return_value2(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', lambda _: 'Kay')
+        result = angets.get_confirmation(selection={'k': True, 'kay': True, 'n': False, 'nay': False})
+        assert result == True
