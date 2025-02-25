@@ -8,7 +8,7 @@ At least it is for me since I made the whole thing in the first place...
 
 ## Prerequisites
 
-Python 3.10.x or newer.
+Python 3.11.x or newer.
 
 ## Installation
 
