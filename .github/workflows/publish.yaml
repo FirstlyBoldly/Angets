@@ -12,6 +12,9 @@ jobs:
   release-build:
     runs-on: ubuntu-latest
 
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -32,8 +35,7 @@ jobs:
 
       - name: Get package version
         id: get_version
-        run: |
-          echo "VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> $GITHUB_ENV
+        run: echo "version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> "$GITHUB_OUTPUT"
 
   pypi-publish:
     runs-on: ubuntu-latest
@@ -62,8 +64,7 @@ jobs:
     name: >-
       Sign the Python distribution with Sigstore
       and upload them to GitHub Release
-    needs:
-      - pypi-publish
+    needs: [release-build, pypi-publish]
     runs-on: ubuntu-latest
 
     permissions:
@@ -71,6 +72,8 @@ jobs:
       id-token: write
 
     steps:
+      - env:
+          VERSION: ${{ needs.release-build.outputs.version }}
       - name: Download all the dists
         uses: actions/download-artifact@v4
         with:
