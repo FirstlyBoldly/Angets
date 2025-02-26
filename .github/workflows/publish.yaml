@@ -91,6 +91,8 @@ jobs:
             ./dist/*.tar.gz
             ./dist/*.whl
       - name: Create Git tag
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git tag -a "$VERSION" -m "Release v$VERSION"
           git push origin "$VERSION"
