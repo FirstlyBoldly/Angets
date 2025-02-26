@@ -35,7 +35,8 @@ jobs:
 
       - name: Get package version
         id: get_version
-        run: echo "version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> "$GITHUB_OUTPUT"
 
   pypi-publish:
     runs-on: ubuntu-latest
