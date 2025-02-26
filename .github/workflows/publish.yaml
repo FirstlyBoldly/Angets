@@ -73,6 +73,10 @@ jobs:
       id-token: write
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set version variable
         run: echo "VERSION=${{ needs.release-build.outputs.version }}" >> "$GITHUB_ENV"
       - name: Download all the dists
