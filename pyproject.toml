@@ -15,17 +15,30 @@ check_untyped_defs = true
 
 [project]
 name = "angets"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
-    { name = "Ankhbold Batbaatar", email = "ankhbhold@gmail.com" },
+    { name = "Ankhbold Batbaatar", email = "ankhasgreens@gmail.com" },
+]
+maintainers = [
+    { name = "Ankhbold Batbaatar", email = "ankhasgreens@gmail.com" },
 ]
 description = "Angets (Ankha's Gets): Functions for user input."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
+keywords = ["Ankha's Greens", "user input", "gets"]
 classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
+    "Framework :: tox",
+    "Typing :: Typed",
 ]
 
 [project.urls]

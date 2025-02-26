@@ -1,5 +1,9 @@
 # Angets (Ankha's Gets): Functions for user input.
 
+![Tests](https://github.com/FirstlyBoldly/Angets/actions/workflows/tests.yaml/badge.svg)
+[![PyPI](https://img.shields.io/pypi/pyversions/angets.svg)](https://pypi.org/project/angets/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
+
 Ever get tired of fine-tuning user input?
 \
 Well, this is the package for you!
