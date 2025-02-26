@@ -55,15 +55,3 @@ It should be a useful utility tool to mitigate against invalid user inputs.
 Actually, I don't expect anyone else other than me to use this package.
 \
 But if you find it useful enough to want to contribute, be my guest!
-
-## Changes
-
-Created:
-
-- 19 February 2025.
-
-Revised:
-
-- 21 February 2025.
-  1. Fixed the installation command.
-  2. Added a new image.

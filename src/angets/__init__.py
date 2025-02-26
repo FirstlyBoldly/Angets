@@ -1,6 +1,7 @@
 """Angets (Ankha's Gets): Functions for user input."""
+import importlib.metadata
 
-__version__ = '0.1.2'
+__version__: str = importlib.metadata.version('angets')
 
 from angets._core import (
     get_non_empty_str, get_constrained_number, get_float, get_constrained_float, get_positive_float,
