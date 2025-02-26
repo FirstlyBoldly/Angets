@@ -33,8 +33,7 @@ jobs:
           name: release-dists
           path: dist/
 
-      - name: Get package version
-        id: get_version
+      - id: get_version
         run: |
           echo "version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> "$GITHUB_OUTPUT"
 
