@@ -36,6 +36,11 @@ jobs:
           name: release-dists
           path: dist/
 
+      - name: Get package version
+        id: get_version
+        run: |
+          echo "VERSION=$(python -c 'from angets import __version__; print(__version__)')" >> $GITHUB_ENV
+
   pypi-publish:
     runs-on: ubuntu-latest
     needs:
@@ -77,18 +82,29 @@ jobs:
         with:
           name: release-dists
           path: dist/
+      - name: Sign the dists with Sigstore
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: >-
+            ./dist/*.tar.gz
+            ./dist/*.whl
+      - name: Create Git tag
+        run: |
+          git tag -a "$VERSION" -m "Release v$VERSION"
+          git push origin "$VERSION"
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
           gh release create
-          "$GITHUB_REF_NAME"
+          "$VERSION"
+          --title "Release v$VERSION"
           --repo "$GITHUB_REPOSITORY"
-          --notes ""
+          --generate-notes
       - name: Upload artifact signatures to GitHub Release
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
           gh release upload
-          "$GITHUB_REF_NAME" dist/**
+          "$VERSION" dist/**
           --repo "$GITHUB_REPOSITORY"
