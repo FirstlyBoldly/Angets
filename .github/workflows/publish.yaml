@@ -33,7 +33,7 @@ jobs:
       - name: Get package version
         id: get_version
         run: |
-          echo "VERSION=$(python -c 'from angets import __version__; print(__version__)')" >> $GITHUB_ENV
+          echo "VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> $GITHUB_ENV
 
   pypi-publish:
     runs-on: ubuntu-latest
