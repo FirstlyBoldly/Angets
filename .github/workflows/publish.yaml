@@ -104,7 +104,7 @@ jobs:
         run: >-
           gh release create
           "$VERSION"
-          --title "Release v$VERSION"
+          --title "$VERSION"
           --repo "$GITHUB_REPOSITORY"
           --generate-notes
       - name: Upload artifact signatures to GitHub Release
