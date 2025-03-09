@@ -4,6 +4,10 @@
 
 - Here Be Dragons
 
+## v0.2.2 (2025/03/09)
+
+- Actually never mind, remove the README.md image.
+
 ## v0.2.1 (2025/03/09)
 
 - Fix README.md image.
