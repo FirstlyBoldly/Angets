@@ -50,7 +50,7 @@ That is the gist of the main features.
 \
 It should be a useful utility tool to mitigate against invalid user inputs.
 
-## <img src="/src/assets/images/troll_face.png" alt="Troll Face" style="height: 24px; width: 24px;" /> Problem?
+## <img src="https://raw.githubusercontent.com/FirstlyBoldly/Angets/main/assets/images/troll_face.png" alt="Troll Face" style="height: 24px; width: 24px;" /> Problem?
 
 Actually, I don't expect anyone else other than me to use this package.
 \

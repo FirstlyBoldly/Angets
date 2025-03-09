@@ -4,6 +4,10 @@
 
 - Here Be Dragons
 
+## v0.2.1 (2025/03/09)
+
+- Fix README.md image.
+
 ## v0.2.0 (2025/03/09)
 
 - Added pytest coverage to Makefile test command
