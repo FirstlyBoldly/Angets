@@ -1,21 +1,6 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.package-data]
-angets = ["py.typed"]
-
-[tool.pytest.ini_options]
-minversion = "6.0"
-testpaths = ["tests"]
-
-[tool.mypy]
-mypy_path = "src"
-check_untyped_defs = true
-
 [project]
 name = "angets"
-version = "0.1.10"
+version = "0.2.0"
 authors = [
     { name = "Ankhbold Batbaatar", email = "ankhasgreens@gmail.com" },
 ]
@@ -44,3 +29,18 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/FirstlyBoldly/Angets"
 Issues = "https://github.com/FirstlyBoldly/Angets/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+angets = ["py.typed"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+
+[tool.mypy]
+mypy_path = "src"
+check_untyped_defs = true

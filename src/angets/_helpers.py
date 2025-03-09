@@ -27,4 +27,4 @@ def convert_float_to_int(float_number: float, warning: str | None = None) -> int
 
 def normalize_to_ascii(non_ascii_string: str) -> str:
     """Convert a Japanese full-width number to half-width."""
-    return sub('[ー－―—‐]', '-', normalize('NFKC', non_ascii_string))
+    return sub("[ー－―—‐]", "-", normalize("NFKC", non_ascii_string))
