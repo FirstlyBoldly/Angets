@@ -1,4 +1,4 @@
-# Angets (Ankha's Gets): Functions for user input.
+# Ankha's Gets: Functions for user input.
 
 ![Tests](https://github.com/FirstlyBoldly/Angets/actions/workflows/tests.yaml/badge.svg)
 [![PyPI](https://img.shields.io/pypi/pyversions/angets.svg)](https://pypi.org/project/angets/)
@@ -50,7 +50,7 @@ That is the gist of the main features.
 \
 It should be a useful utility tool to mitigate against invalid user inputs.
 
-## <img src="/assets/images/troll_face.png" alt="Troll Face" style="height: 24px; width: 24px;" /> Problem?
+## <img src="/src/assets/images/troll_face.png" alt="Troll Face" style="height: 24px; width: 24px;" /> Problem?
 
 Actually, I don't expect anyone else other than me to use this package.
 \
